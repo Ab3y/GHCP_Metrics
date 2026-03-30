@@ -6,7 +6,7 @@ import { useSeats } from '../hooks/useSeats';
 import { useThemeStore } from '../store/themeStore';
 import type { CopilotSeat } from '../api/types';
 
-type SortKey = 'login' | 'team' | 'plan' | 'lastActivity' | 'editor' | 'status';
+type SortKey = 'login' | 'team' | 'plan' | 'lastActivity' | 'lastAuth' | 'editor' | 'status';
 type SortDir = 'asc' | 'desc';
 
 function seatStatus(seat: CopilotSeat): 'active' | 'inactive' | 'pending_cancellation' {
@@ -82,6 +82,7 @@ export function Seats() {
         case 'team': return s.assigning_team?.name ?? '';
         case 'plan': return s.plan_type ?? '';
         case 'lastActivity': return s.last_activity_at ?? '';
+        case 'lastAuth': return s.last_authenticated_at ?? '';
         case 'editor': return s.last_activity_editor ?? '';
         case 'status': return seatStatus(s);
       }
@@ -162,6 +163,7 @@ export function Seats() {
                 <th className={thClass} onClick={() => toggleSort('team')}>Team<SortIcon col="team" /></th>
                 <th className={thClass} onClick={() => toggleSort('plan')}>Plan<SortIcon col="plan" /></th>
                 <th className={thClass} onClick={() => toggleSort('lastActivity')}>Last Activity<SortIcon col="lastActivity" /></th>
+                <th className={thClass} onClick={() => toggleSort('lastAuth')}>Last Auth<SortIcon col="lastAuth" /></th>
                 <th className={thClass} onClick={() => toggleSort('editor')}>Editor<SortIcon col="editor" /></th>
                 <th className={thClass} onClick={() => toggleSort('status')}>Status<SortIcon col="status" /></th>
               </tr>
@@ -182,6 +184,7 @@ export function Seats() {
                     <td className={`px-4 py-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{seat.assigning_team?.name ?? '\u2014'}</td>
                     <td className={`px-4 py-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{seat.plan_type ?? '\u2014'}</td>
                     <td className={`px-4 py-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{formatDate(seat.last_activity_at)}</td>
+                    <td className={`px-4 py-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{formatDate(seat.last_authenticated_at)}</td>
                     <td className={`px-4 py-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{seat.last_activity_editor ?? '\u2014'}</td>
                     <td className="px-4 py-3"><StatusBadge status={status} isDark={isDark} /></td>
                   </tr>
@@ -189,7 +192,7 @@ export function Seats() {
               })}
               {sortedSeats.length === 0 && (
                 <tr>
-                  <td colSpan={6} className={`px-4 py-12 text-center ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                  <td colSpan={7} className={`px-4 py-12 text-center ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
                     No matching users found
                   </td>
                 </tr>

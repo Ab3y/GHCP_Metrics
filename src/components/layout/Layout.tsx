@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
+import { FilterFlyout } from '../filters/FilterFlyout';
 import { useThemeStore } from '../../store/themeStore';
 
 export function Layout() {
@@ -15,6 +16,7 @@ export function Layout() {
       >
         <Sidebar />
         <Header />
+        <FilterFlyout />
         <main className="lg:ml-64 pt-16">
           <div id="dashboard-content" className="p-4 sm:p-6">
             <Outlet />

@@ -1,4 +1,4 @@
-# GitHub Copilot Metrics Dashboard
+# Abe's GHCP Metrics
 
 A modern, responsive React + TypeScript dashboard for visualizing GitHub Copilot usage metrics. Features interactive charts, dark/light neon theming, pinnable panels, export capabilities, and support for organization, enterprise, and team-level views.
 

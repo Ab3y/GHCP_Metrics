@@ -320,6 +320,10 @@ function buildSeats(): CopilotSeat[] {
           ? new Date(now.getTime() - 86400000 * u.daysAgoActive).toISOString()
           : null,
       last_activity_editor: u.editor,
+      last_authenticated_at:
+        u.daysAgoActive !== null
+          ? new Date(now.getTime() - 86400000 * Math.max(0, u.daysAgoActive - 1)).toISOString()
+          : null,
       plan_type: 'business',
       assignee: {
         login: u.login,

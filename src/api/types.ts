@@ -101,19 +101,28 @@ export interface CopilotSeat {
   pending_cancellation_date: string | null;
   last_activity_at: string | null;
   last_activity_editor: string | null;
+  last_authenticated_at: string | null;
   plan_type?: string;
   assignee: {
     login: string;
     id: number;
+    node_id?: string;
     avatar_url: string;
+    gravatar_id?: string;
+    url?: string;
     html_url: string;
     type: string;
+    site_admin?: boolean;
   };
   assigning_team?: {
     id: number;
+    node_id?: string;
     name: string;
     slug: string;
     description: string;
+    privacy?: string;
+    notification_setting?: string;
+    permission?: string;
   } | null;
 }
 

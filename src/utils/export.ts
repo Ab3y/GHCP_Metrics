@@ -39,7 +39,7 @@ export async function exportToPdf(
   // Title header
   pdf.setFontSize(14);
   pdf.setTextColor(0, 255, 247);
-  pdf.text(`Copilot Metrics — ${filename}`, margin, margin + 4);
+  pdf.text(`GHCP Metrics — ${filename}`, margin, margin + 4);
 
   pdf.setFontSize(9);
   pdf.setTextColor(160, 160, 160);
@@ -95,7 +95,7 @@ export async function exportToHtml(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Copilot Metrics — ${filename}</title>
+  <title>GHCP Metrics — ${filename}</title>
   <style>
     body { margin: 0; padding: 24px; font-family: 'Inter', -apple-system, sans-serif; }
     .export-header { padding: 12px 0 20px; border-bottom: 1px solid #2a2a3e; margin-bottom: 20px; }
@@ -105,7 +105,7 @@ export async function exportToHtml(
 </head>
 <body>
   <div class="export-header">
-    <h1>Copilot Metrics — ${filename}</h1>
+    <h1>GHCP Metrics — ${filename}</h1>
     <p>Generated ${new Date().toLocaleString()}</p>
   </div>
   ${clone.outerHTML}

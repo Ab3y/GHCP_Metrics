@@ -63,7 +63,7 @@ export function Sidebar() {
             <LayoutDashboard size={18} className="text-neon-cyan" />
           </div>
           <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            Copilot Metrics
+            GHCP Metrics
           </span>
         </div>
 
@@ -95,7 +95,7 @@ export function Sidebar() {
             isDark ? 'text-gray-500' : 'text-gray-400'
           }`}
         >
-          GitHub Copilot Dashboard
+          Abe's GHCP Metrics
         </div>
       </aside>
     </>

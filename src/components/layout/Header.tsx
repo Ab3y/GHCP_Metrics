@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, Download, Plus, Building2 } from 'lucide-react';
+import { ChevronDown, Download, Plus, Building2, SlidersHorizontal } from 'lucide-react';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { Badge } from '../ui/Badge';
 import { ExportModal } from '../export/ExportModal';
@@ -18,8 +18,11 @@ export function Header() {
   const { theme } = useThemeStore();
   const { demoMode } = useAuthStore();
   const { current, savedOrgs, setCurrent, setTeamSlug, teamSlug } = useOrgStore();
-  const { resetFilters } = useFilterStore();
+  const { resetFilters, toggleFilterPanel, languages, editors, models, datePreset } = useFilterStore();
   const isDark = theme === 'dark';
+
+  const activeFilterCount =
+    languages.length + editors.length + models.length + (datePreset !== '28d' ? 1 : 0);
 
   return (
     <header
@@ -120,6 +123,22 @@ export function Header() {
       <div className="flex items-center gap-3">
         {demoMode && <Badge variant="orange">Demo Mode</Badge>}
         <ThemeToggle />
+        <button
+          onClick={toggleFilterPanel}
+          className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-sm font-medium transition-colors ${
+            isDark
+              ? 'border-dark-border text-gray-300 hover:text-neon-cyan hover:border-neon-cyan'
+              : 'border-light-border text-gray-600 hover:text-neon-cyan hover:border-neon-cyan'
+          }`}
+        >
+          <SlidersHorizontal size={14} />
+          Filters
+          {activeFilterCount > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] flex items-center justify-center bg-neon-cyan text-black text-[10px] font-bold rounded-full px-1">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
         <button
           onClick={() => setExportOpen(true)}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-sm font-medium transition-colors ${

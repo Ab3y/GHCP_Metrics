@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
 import { GitPullRequest, FolderGit2, BarChart3 } from 'lucide-react';
-import { FilterBar } from '../components/filters/FilterBar';
 import { KpiCard } from '../components/ui/KpiCard';
 import { BarChart, AreaChart, DonutChart, NEON_COLORS } from '../components/charts';
 import { useMetrics } from '../hooks/useMetrics';
 import { useThemeStore } from '../store/themeStore';
 import { useFilterStore } from '../store/filterStore';
-import { applyFilters, getUniqueLanguages, getUniqueEditors, getUniqueModels } from '../utils';
+import { applyFilters } from '../utils';
 
 export function PRSummaries() {
   const { theme } = useThemeStore();
@@ -17,10 +16,6 @@ export function PRSummaries() {
     () => (data ? applyFilters(data, filters) : []),
     [data, filters],
   );
-
-  const languageOptions = useMemo(() => (data ? getUniqueLanguages(data) : []), [data]);
-  const editorOptions = useMemo(() => (data ? getUniqueEditors(data) : []), [data]);
-  const modelOptions = useMemo(() => (data ? getUniqueModels(data) : []), [data]);
 
   const kpis = useMemo(() => {
     if (!metrics.length) return { total: 0, repos: 0, avgPerRepo: 0 };
@@ -85,7 +80,6 @@ export function PRSummaries() {
     return (
       <div>
         <h1 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>PR Summaries</h1>
-        <FilterBar languageOptions={languageOptions} editorOptions={editorOptions} modelOptions={modelOptions} />
         <div className={`flex items-center justify-center h-64 rounded-xl border ${isDark ? 'bg-dark-card border-dark-border' : 'bg-light-card border-light-border'}`}>
           <span className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>No data available</span>
         </div>
@@ -96,7 +90,6 @@ export function PRSummaries() {
   return (
     <div>
       <h1 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>PR Summaries</h1>
-      <FilterBar languageOptions={languageOptions} editorOptions={editorOptions} modelOptions={modelOptions} />
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
         <KpiCard label="Total Summaries" value={kpis.total.toLocaleString()} icon={<GitPullRequest size={18} />} neonColor="neon-cyan" />

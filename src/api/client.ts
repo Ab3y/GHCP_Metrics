@@ -21,6 +21,22 @@ async function fetchJson<T>(url: string, token: string): Promise<T> {
   const response = await fetch(url, { headers: buildHeaders(token) });
   if (!response.ok) {
     const body = await response.text().catch(() => '');
+    if (response.status === 401) {
+      throw new Error('Authentication failed. Check your personal access token.');
+    }
+    if (response.status === 403) {
+      throw new Error(
+        'Forbidden. Ensure your token has the required scopes: copilot, manage_billing:copilot, and read:org.',
+      );
+    }
+    if (response.status === 404) {
+      throw new Error(
+        'Resource not found. Verify the organization/enterprise name and that Copilot is enabled.',
+      );
+    }
+    if (response.status === 422) {
+      throw new Error(`Validation failed: ${body}`);
+    }
     throw new Error(
       `GitHub API error ${response.status}: ${response.statusText}. ${body}`,
     );

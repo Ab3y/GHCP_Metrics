@@ -19,11 +19,11 @@ export function exportToHtml(elementId: string, filename = 'copilot-metrics-repo
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GitHub Copilot Metrics Report</title>
+  <title>Abe's GHCP Metrics Report</title>
   <style>${styles}</style>
 </head>
 <body class="dark" style="background-color: #0a0a0f; color: #e4e4e7; padding: 2rem;">
-  <h1 style="color: #00fff7; font-family: Inter, sans-serif; margin-bottom: 1rem;">GitHub Copilot Metrics Report</h1>
+  <h1 style="color: #00fff7; font-family: Inter, sans-serif; margin-bottom: 1rem;">Abe's GHCP Metrics Report</h1>
   <p style="color: #888; font-family: Inter, sans-serif; margin-bottom: 2rem;">Generated on ${new Date().toLocaleDateString()}</p>
   ${element.innerHTML}
 </body>

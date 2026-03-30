@@ -8,11 +8,14 @@ interface FilterState {
   languages: string[];
   editors: string[];
   models: string[];
+  filterPanelOpen: boolean;
   setDatePreset: (preset: DatePreset) => void;
   setDateRange: (range: { since: string; until: string }) => void;
   setLanguages: (languages: string[]) => void;
   setEditors: (editors: string[]) => void;
   setModels: (models: string[]) => void;
+  toggleFilterPanel: () => void;
+  setFilterPanelOpen: (open: boolean) => void;
   resetFilters: () => void;
 }
 
@@ -32,12 +35,16 @@ export const useFilterStore = create<FilterState>()((set) => ({
   languages: [],
   editors: [],
   models: [],
+  filterPanelOpen: false,
   setDatePreset: (datePreset) =>
     set({ datePreset, dateRange: getDateRange(datePreset) }),
   setDateRange: (dateRange) => set({ dateRange, datePreset: 'custom' }),
   setLanguages: (languages) => set({ languages }),
   setEditors: (editors) => set({ editors }),
   setModels: (models) => set({ models }),
+  toggleFilterPanel: () =>
+    set((state) => ({ filterPanelOpen: !state.filterPanelOpen })),
+  setFilterPanelOpen: (open) => set({ filterPanelOpen: open }),
   resetFilters: () =>
     set({
       datePreset: '28d',
