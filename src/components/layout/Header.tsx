@@ -6,6 +6,7 @@ import { ExportModal } from '../export/ExportModal';
 import { useAuthStore } from '../../store/authStore';
 import { useOrgStore } from '../../store/orgStore';
 import { useThemeStore } from '../../store/themeStore';
+import { useFilterStore } from '../../store/filterStore';
 import { exportToPdf } from '../../utils/exportPdf';
 import { exportToHtml } from '../../utils/exportHtml';
 import { exportMetricsToCsv } from '../../utils/exportCsv';
@@ -17,6 +18,7 @@ export function Header() {
   const { theme } = useThemeStore();
   const { demoMode } = useAuthStore();
   const { current, savedOrgs, setCurrent, setTeamSlug, teamSlug } = useOrgStore();
+  const { resetFilters } = useFilterStore();
   const isDark = theme === 'dark';
 
   return (
@@ -62,6 +64,7 @@ export function Header() {
                       key={org.name}
                       onClick={() => {
                         setCurrent(org);
+                        resetFilters();
                         setOrgDropdownOpen(false);
                       }}
                       className={`w-full text-left px-4 py-2 text-sm transition-colors ${

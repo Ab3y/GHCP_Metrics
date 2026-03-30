@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { Users, UserCheck, UserX, Clock, Search, ChevronUp, ChevronDown } from 'lucide-react';
-import { FilterBar } from '../components/filters/FilterBar';
 import { KpiCard } from '../components/ui/KpiCard';
 import { GaugeChart, NEON_COLORS } from '../components/charts';
 import { useSeats } from '../hooks/useSeats';
@@ -116,7 +115,6 @@ export function Seats() {
     return (
       <div>
         <h1 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Seats & Users</h1>
-        <FilterBar />
         <div className={`flex items-center justify-center h-64 rounded-xl border ${isDark ? 'bg-dark-card border-dark-border' : 'bg-light-card border-light-border'}`}>
           <span className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>No data available</span>
         </div>
@@ -127,7 +125,6 @@ export function Seats() {
   return (
     <div>
       <h1 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Seats & Users</h1>
-      <FilterBar />
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
         <KpiCard label="Total Seats" value={kpis.total} icon={<Users size={18} />} neonColor="neon-cyan" />

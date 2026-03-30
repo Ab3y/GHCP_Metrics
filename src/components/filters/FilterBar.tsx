@@ -5,22 +5,13 @@ import { useThemeStore } from '../../store/themeStore';
 
 const DATE_PRESETS = ['7d', '14d', '28d'] as const;
 
-const LANGUAGE_OPTIONS = [
-  'TypeScript',
-  'Python',
-  'JavaScript',
-  'Go',
-  'Ruby',
-  'Java',
-  'C#',
-  'Rust',
-];
+interface FilterBarProps {
+  languageOptions?: string[];
+  editorOptions?: string[];
+  modelOptions?: string[];
+}
 
-const EDITOR_OPTIONS = ['VS Code', 'JetBrains', 'Neovim', 'Visual Studio'];
-
-const MODEL_OPTIONS = ['default', 'gpt-4o', 'custom-acme-v2'];
-
-export function FilterBar() {
+export function FilterBar({ languageOptions = [], editorOptions = [], modelOptions = [] }: FilterBarProps) {
   const {
     datePreset,
     setDatePreset,
@@ -70,19 +61,19 @@ export function FilterBar() {
       {/* Multi-select filters */}
       <MultiSelect
         label="Languages"
-        options={LANGUAGE_OPTIONS}
+        options={languageOptions}
         selected={languages}
         onChange={setLanguages}
       />
       <MultiSelect
         label="Editors"
-        options={EDITOR_OPTIONS}
+        options={editorOptions}
         selected={editors}
         onChange={setEditors}
       />
       <MultiSelect
         label="Models"
-        options={MODEL_OPTIONS}
+        options={modelOptions}
         selected={models}
         onChange={setModels}
       />

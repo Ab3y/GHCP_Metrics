@@ -136,6 +136,8 @@ export function applyFilters(
   }
   return days.map((day) => {
     const filtered = { ...day };
+
+    // Filter code completions by editor, model, and language
     if (
       filtered.copilot_ide_code_completions &&
       (filters.editors.length ||
@@ -167,6 +169,54 @@ export function applyFilters(
           })),
       };
     }
+
+    // Filter IDE chat by editor and model
+    if (
+      filtered.copilot_ide_chat &&
+      (filters.editors.length || filters.models.length)
+    ) {
+      filtered.copilot_ide_chat = {
+        ...filtered.copilot_ide_chat,
+        editors: filtered.copilot_ide_chat.editors
+          .filter(
+            (e) =>
+              !filters.editors.length || filters.editors.includes(e.name),
+          )
+          .map((e) => ({
+            ...e,
+            models: e.models.filter(
+              (m) =>
+                !filters.models.length || filters.models.includes(m.name),
+            ),
+          })),
+      };
+    }
+
+    // Filter Dotcom chat by model
+    if (filtered.copilot_dotcom_chat && filters.models.length) {
+      filtered.copilot_dotcom_chat = {
+        ...filtered.copilot_dotcom_chat,
+        models: filtered.copilot_dotcom_chat.models.filter(
+          (m) => filters.models.includes(m.name),
+        ),
+      };
+    }
+
+    // Filter PR summaries by model
+    if (filtered.copilot_dotcom_pull_requests && filters.models.length) {
+      filtered.copilot_dotcom_pull_requests = {
+        ...filtered.copilot_dotcom_pull_requests,
+        repositories: filtered.copilot_dotcom_pull_requests.repositories.map(
+          (repo) => ({
+            ...repo,
+            models: repo.models.filter(
+              (m) => filters.models.includes(m.name),
+            ),
+          }),
+        ),
+      };
+    }
+
     return filtered;
   });
 }
@@ -189,9 +239,15 @@ export function getUniqueLanguages(days: CopilotMetricsDay[]): string[] {
 export function getUniqueEditors(days: CopilotMetricsDay[]): string[] {
   const editors = new Set<string>();
   for (const day of days) {
-    if (!day.copilot_ide_code_completions) continue;
-    for (const editor of day.copilot_ide_code_completions.editors) {
-      editors.add(editor.name);
+    if (day.copilot_ide_code_completions) {
+      for (const editor of day.copilot_ide_code_completions.editors) {
+        editors.add(editor.name);
+      }
+    }
+    if (day.copilot_ide_chat) {
+      for (const editor of day.copilot_ide_chat.editors) {
+        editors.add(editor.name);
+      }
     }
   }
   return Array.from(editors).sort();
@@ -200,10 +256,30 @@ export function getUniqueEditors(days: CopilotMetricsDay[]): string[] {
 export function getUniqueModels(days: CopilotMetricsDay[]): string[] {
   const models = new Set<string>();
   for (const day of days) {
-    if (!day.copilot_ide_code_completions) continue;
-    for (const editor of day.copilot_ide_code_completions.editors) {
-      for (const model of editor.models) {
+    if (day.copilot_ide_code_completions) {
+      for (const editor of day.copilot_ide_code_completions.editors) {
+        for (const model of editor.models) {
+          models.add(model.name);
+        }
+      }
+    }
+    if (day.copilot_ide_chat) {
+      for (const editor of day.copilot_ide_chat.editors) {
+        for (const model of editor.models) {
+          models.add(model.name);
+        }
+      }
+    }
+    if (day.copilot_dotcom_chat) {
+      for (const model of day.copilot_dotcom_chat.models) {
         models.add(model.name);
+      }
+    }
+    if (day.copilot_dotcom_pull_requests) {
+      for (const repo of day.copilot_dotcom_pull_requests.repositories) {
+        for (const model of repo.models) {
+          models.add(model.name);
+        }
       }
     }
   }
