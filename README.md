@@ -2,8 +2,47 @@
 
 A modern, responsive React + TypeScript dashboard for visualizing GitHub Copilot usage metrics. Features interactive charts, dark/light neon theming, pinnable panels, export capabilities, and support for organization, enterprise, and team-level views.
 
+> **Try it instantly** — the dashboard launches in **Demo Mode** with sample data. No GitHub token required.
+
+---
+
+## 📸 Screenshots
+
+### Dashboard Home
+Customizable home view with pinnable panels — adoption overview, code completions, language breakdown, and chat activity at a glance.
+
+![Dashboard Home](docs/screenshots/dashboard-home.png)
+
+### Code Completions
+Deep-dive into code suggestion metrics — daily trends with dual-axis combo charts, acceptance rates by language (donut), editor breakdown, and model comparison.
+
+![Code Completions — Dark](docs/screenshots/completions.png)
+
+### Chat Analytics
+Track Copilot Chat usage across IDE and GitHub.com — daily volume, per-editor breakdown, and engagement metrics (copy & insertion events).
+
+![Chat Analytics](docs/screenshots/chat-analytics.png)
+
+### PR Summaries
+Monitor pull request summary generation — daily trends, per-repository breakdown, and model distribution.
+
+![PR Summaries](docs/screenshots/pr-summaries.png)
+
+### Seats & Users
+Manage Copilot seat assignments — utilization gauge, searchable/sortable user table with status badges, team assignments, and activity tracking.
+
+![Seats & Users](docs/screenshots/seats-users.png)
+
+### 🌗 Light Mode
+Full light theme support with subtle neon accents — toggle instantly via the header.
+
+![Light Mode](docs/screenshots/completions-light.png)
+
+---
+
 ## Table of Contents
 
+- [Screenshots](#-screenshots)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
 - [Data Sources](#data-sources)
